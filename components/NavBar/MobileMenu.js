@@ -5,10 +5,10 @@ import { MenuIcon, XIcon } from "@heroicons/react/solid"
 
 const MenuList = () => (
     <div className="flex flex-col w-full">
-        <Link href="/articles">
+        <Link href="/blogs">
             <a className="px-2 py-2 border-b border-gray-300 dark:border-gray-700
                         hover:bg-gray-200 dark:hover:bg-gray-700">
-                Articles
+                Blogs
             </a>
         </Link>
         <Link href="/experiments">

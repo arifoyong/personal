@@ -27,7 +27,7 @@ const Layout = ({children, ...customMeta}) => {
             </Head>
 
             
-            <div className="flex flex-col max-w-6xl mx-auto">
+            <div className="flex flex-col max-w-4xl mx-auto">
                 <Navbar />
                 <div className="">
                     {children}

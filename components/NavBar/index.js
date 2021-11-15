@@ -44,11 +44,11 @@ const Navbar = () => {
     }
 
     return (
-        <div className="flex items-start justify-between px-6 py-4 mb-8">
+        <div className="flex items-start justify-between py-4 mb-8">
             <div className="flex items-center space-x-6 w-full">       
                 <MobileMenu />   
                 <NavItem href="/" text={<CubeIcon className="w-7 h-7 text-blue-600 dark:text-blue-500 hover:text-blue-800"/>}/>
-                <NavItem href="/articles" text="Articles"/>
+                <NavItem href="/blogs" text="Blogs"/>
                 <NavItem href="/experiments" text="Experiments"/>
             </div>
             

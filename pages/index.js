@@ -47,10 +47,10 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Article section */}
+        {/* Blog section */}
         <section>
-          <h1 className="font-bold text-2xl">Recent Articles</h1>
-          <p>articles</p>
+          <h1 className="font-bold text-2xl">Recent Blogs</h1>
+          <p>Blogs</p>
         </section>
       </div>
     </Layout>
