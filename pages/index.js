@@ -1,8 +1,39 @@
 import Img from 'next/image'
 import Link from 'next/link'
 import Layout from '../components/Layout'
+import fs from 'fs'
+import path from 'path'
+import matter from 'gray-matter'
 
-export default function Home() {
+
+const BlogPostCard = ({title, description, date, slug}) => {
+  return (
+    <Link href={`/blog/${slug}`}>
+      <a className="flex flex-col w-full md:w-1/3 justify-between
+            border border-blue-600 rounded-lg shadow-md
+            transform hover:scale-[1.04] transition-all">
+        <div className="flex flex-col">
+          <h3 className="text-lg text-gray-800 px-4 py-2 
+                rounded-t-lg mb-2 bg-gray-200">
+            {title}
+          </h3>
+          <p className="text-gray-600 px-4" >
+            {description}
+          </p>
+        </div>
+        
+        <p className="text-sm text-right px-4 py-4 md:py-2">
+            {date}
+        </p>
+        
+      </a>
+    </Link>
+  )
+}
+
+
+export default function Home({sortedPosts}) {
+
   return (
     <Layout>
       <div className="flex flex-col px-6 py-4 space-y-6">
@@ -49,10 +80,47 @@ export default function Home() {
 
         {/* Blog section */}
         <section>
-          <h1 className="font-bold text-2xl">Recent Blogs</h1>
-          <p>Blogs</p>
+          <h1 className="font-bold text-2xl mb-4">
+            Recent Blogs
+          </h1>
+          
+          <div className="flex flex-col md:flex-row gap-6 items-stretch items-start">
+            {sortedPosts.slice(0,3).map((dt, index) => (
+              <BlogPostCard key={index} {...dt} />
+            ))}
+          </div>
+          
         </section>
       </div>
     </Layout>
   )
+}
+
+
+export const getStaticProps = async () => {
+  const files = fs.readdirSync(path.join('posts'))
+
+  const posts = files.map(filename => {
+      const markdownWithMeta = fs.readFileSync(path.join('posts', filename), 'utf-8')
+      const { data: frontMatter } = matter(markdownWithMeta)
+
+      return {
+          ...frontMatter,
+          slug: filename.split('.')[0]
+      }
+  })
+
+  const sortedPosts = posts.sort((a,b) => {
+    if (a.date < b.date) {
+      return 1
+    } else if (a.date > b.date) {
+      return -1
+    } else {
+      return 0
+    }
+  })
+
+  return {
+      props: { sortedPosts }
+  }
 }
